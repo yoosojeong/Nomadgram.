@@ -17,6 +17,10 @@ class Image(TimeStampedModel):
     location = models.CharField(max_length=140)
     caption = models.TextField()
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True)
+    # image_set = {LOOK IN ALL THE COMMENTS FOR THE ONES THAT HAVE 'IMAGE' = THIS IMAGE ID}
+ 
+    def __str__(self):
+        return '{} - {}'.format(self.location, self.caption)
 
 class Comment(TimeStampedModel):
 
@@ -24,11 +28,17 @@ class Comment(TimeStampedModel):
 
     message = models.TextField()
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True)
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True, related_name='comments')
+
+    def __str__(self):
+        return self.message
 
 class Like(TimeStampedModel):
 
     """ Like Model """
 
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True)
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True, related_name='likes')
+
+    def __str__(self):
+        return 'User: {} - Image Caption: {}'.format(self.creator.username, self.image.caption)
