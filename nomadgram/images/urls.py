@@ -4,19 +4,46 @@ from . import views
 urlpatterns = [
     url(
         regex=r'^$',
-        view=views.Feed.as_view(),
+        view=views.Images.as_view(),
         name='feed',
     ),
     url(
-        regex=r'(?P<image_id>[0-9]+)/like',
+        regex=r'^(?P<image_id>[0-9]+)/$',
+        view=views.ImageDetail.as_view(),
+        name='image_detail',
+    ),
+    url(
+        regex=r'^(?P<image_id>[0-9]+)/likes/$',
         view=views.LikeImage.as_view(),
         name='like_image'
+    ),
+    url(
+        regex=r'^(?P<image_id>[0-9]+)/unlikes/$',
+        view=views.UnLikeImage.as_view(),
+        name='like_image'
+    ),
+    url(
+        regex=r'^(?P<image_id>[0-9]+)/comments/$',
+        view=views.CommentOnImage.as_view(),
+        name='comment_image'
+    ),
+     url(
+        regex=r'^(?P<image_id>[0-9]+)/comments/(?P<comment_id>[0-9]+)/$',
+        view=views.ModerateComments.as_view(),
+        name='comment_image'
+    ),
+    url(
+        regex=r'^comments/(?P<comment_id>[0-9]+)/$',
+        view=views.Comment.as_view(),
+        name='comment'
+    ),
+    url(
+        regex=r'^search/$',
+        view=views.Search.as_view(),
+        name='search'
     )
 ]
 
-#/images/3/like/
-
-#1.url, view 생성
-#2.url에서 id 가져오기
-#3.해당 id의 이미지 가져오기 (이를 통해 이미지 존재 확인)
-#4.이미지 좋아요 생성
+# 3/comments/5
+# image_id : 3
+# del: comment_id : 5

@@ -34,6 +34,10 @@ django-debug-toolbar = "==1.9.1"
 django-extensions = "==2.0.6"
 django_coverage_plugin = "==1.5.0"
 pytest-django = "==3.1.2"
+django-taggit = "*"
+djangorestframework-jwt = "*"
+django-taggit-serializer = "*"
+django-rest-auth = "*"
 
 [requires]
 python_version = "3.6.3"

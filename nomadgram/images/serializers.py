@@ -1,6 +1,28 @@
 from rest_framework import serializers
+from taggit_serializer.serializers import (TagListSerializerField,
+                                           TaggitSerializer)
 from . import models
 from nomadgram.users import models as user_models
+
+
+class SmallImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = models.Image   
+        fields = (
+            'file',
+        )
+
+class CountImageSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = models.Image
+        fields = (
+            'id',
+            'file',
+            'comment_count',
+            'like_count',
+        )
 
 class FeedUserSerializer(serializers.ModelSerializer):
 
@@ -13,7 +35,7 @@ class FeedUserSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    creator = FeedUserSerializer()
+    creator = FeedUserSerializer(read_only=True)
 
     class Meta:
         model = models.Comment
@@ -21,20 +43,13 @@ class CommentSerializer(serializers.ModelSerializer):
             'id',
             'message',
             'creator'
-            
         )
 
-# class LikeSerializer(serializers.ModelSerializer):
-    
-#     class Meta:
-#         model = models.Like
-#         fields = '__all__'
-
-
-class imageSerializer(serializers.ModelSerializer):
+class imageSerializer(TaggitSerializer, serializers.ModelSerializer):
     
     comments = CommentSerializer(many=True)
     creator = FeedUserSerializer()
+    tags = TagListSerializerField()
 
     class Meta:
         model = models.Image
@@ -45,5 +60,25 @@ class imageSerializer(serializers.ModelSerializer):
             'caption',
             'comments',
             'like_count',
-            'creator'
+            'tags',
+            'creator',
+            'created_at'
+        )
+
+class LikeSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = models.Like
+        fields = (
+            'creator',
+        )
+    
+class InputImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Image
+        fields = (
+            'file',
+            'location',
+            'caption',
         )
