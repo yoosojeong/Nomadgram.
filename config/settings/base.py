@@ -44,7 +44,7 @@ USE_TZ = True
 DATABASES = {
      'default': {
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-         'NAME': 'nomadgram',
+         'NAME': 'nomadcoders',
          'USER': 'postgres',
          'PASSWORD': '@naver1107',
          'HOST': 'localhost',
@@ -266,4 +266,3 @@ REST_FRAMEWORK = {
 
 REST_USE_JWT = True
 ACCOUNT_LOGOUT_ON_GET = True
-
