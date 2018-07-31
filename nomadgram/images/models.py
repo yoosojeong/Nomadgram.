@@ -22,7 +22,7 @@ class Image(TimeStampedModel):
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True, related_name="images")
     tags = TaggableManager()
     # image_set = {LOOK IN ALL THE COMMENTS FOR THE ONES THAT HAVE 'IMAGE' = THIS IMAGE ID}
-    
+
     @property
     def like_count(self):
         return self.likes.all().count()
@@ -49,11 +49,11 @@ class Comment(TimeStampedModel):
         return self.message
 
 class Like(TimeStampedModel):
- 
+
     """ Like Model """
 
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True, related_name='likes')
 
     def __str__(self):
-        return 'User: {} - Image Caption: {}'.format(self.creator.username, self.image.caption)
+        return 'User: {} - Image Caption: {}'.format(self.creator.username, self.image.caption) 

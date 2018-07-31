@@ -95,8 +95,8 @@ class LikeImage(APIView):
     def post(self, request, image_id, format=None):
         
         user = request.user
-         
-         # create notification for like 
+    
+        # create notification for like 
 
         try: 
             found_image = models.Image.objects.get(id=image_id)

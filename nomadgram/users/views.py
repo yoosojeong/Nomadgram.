@@ -3,7 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from . import models, serializers
 from nomadgram.notifications import views as notification_views
-
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
 
 class ExploreUsers(APIView):
 
@@ -212,3 +213,7 @@ class ChangePassword(APIView):
         else:
 
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class FacebookLogin(SocialLoginView):
+    
+    adapter_class = FacebookOAuth2Adapter
