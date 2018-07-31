@@ -280,10 +280,6 @@ tags
 pyvenv.cfg
 pip-selfcheck.json
 
-
-
-
 nomadgram/media/
-
 
 Pipfile.lock
